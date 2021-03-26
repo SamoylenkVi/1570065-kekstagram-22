@@ -509,11 +509,14 @@ main {
   -webkit-box-pack: center;
      -ms-flex-pack: center;
    justify-content: center;
+   transition-duration: 150ms;
+   transition-timing-function: ease-in;
 
   width: 600px;
   height: 600px;
 
   background-color: #ffffff;
+
 }
 
 .img-upload__preview img {
