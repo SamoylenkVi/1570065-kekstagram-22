@@ -1,10 +1,13 @@
+import { setSliderDefaultSettings } from './slider.js'
 const STEP = 25;
 const VALUE_MAX = 100;
+const DEFAULT_SCALE = 1;
 
 const Keys = {
   ESCAPE: 'Escape',
   ESC: 'Esc',
 }
+
 const formEditingPicture = document.querySelector('.img-upload__form');
 const loadingPicture = formEditingPicture.querySelector('#upload-file');
 const editingPicture = formEditingPicture.querySelector('.img-upload__overlay');
@@ -13,42 +16,54 @@ const body = document.querySelector('body');
 const scaleControlSmaller = formEditingPicture.querySelector('.scale__control--smaller');
 const scaleControlBigger = formEditingPicture.querySelector('.scale__control--bigger');
 const scaleControlValue = formEditingPicture.querySelector('.scale__control--value');
-const pictureSize = formEditingPicture.querySelector('.img-upload__preview ')
-const inputHashtags = document.querySelector('.text__hashtags');
+const pictureSize = formEditingPicture.querySelector('.img-upload__preview ');
+const inputHashtags = formEditingPicture.querySelector('.text__hashtags');
+const commentTextarea = formEditingPicture.querySelector('.text__description');
+
+
+const clouseEditingPicture = () => {
+  body.classList.remove('modal-open');
+  editingPicture.classList.add('hidden');
+  formEditingPicture.reset();
+  commentTextarea.classList.remove('error-message');
+  inputHashtags.classList.remove('error-message');
+  setSliderDefaultSettings();
+  pictureSize.style.transform = `scale(${DEFAULT_SCALE})`
+  document.removeEventListener('keydown', onEscapeCloseEditingPicture);
+}
+
+const onCloseEditingPictureClick = () => {
+  clouseEditingPicture();
+
+}
+
+const onEscapeCloseEditingPicture = (evt) => {
+  const isEscapeDown = evt.key === Keys.ESCAPE || evt.key === Keys.ESC;
+  const isInputHashtagFocus = document.activeElement === inputHashtags;
+  const isTeaxtareaCommentFocus = document.activeElement === commentTextarea;
+
+  if (isEscapeDown && !(isInputHashtagFocus || isTeaxtareaCommentFocus)) {
+    evt.preventDefault();
+    clouseEditingPicture();
+  }
+}
 
 const onOpenEditingPicture = () => {
   body.classList.add('modal-open');
   editingPicture.classList.remove('hidden');
 
-  document.removeEventListener('change', onOpenEditingPicture);
-}
-const clouseEditingPicture = () => {
-  body.classList.remove('modal-open');
-  editingPicture.classList.add('hidden');
-  formEditingPicture.reset();
+  uploadCancel.addEventListener('click', onCloseEditingPictureClick);
+  document.addEventListener('keydown', onEscapeCloseEditingPicture);
 }
 
-const onCloseEditingPicture = () => {
-  clouseEditingPicture();
-  document.removeEventListener('click', onCloseEditingPicture);
-  document.removeEventListener('keydown', onEscapeCloseEditingPicture);
-}
-
-const onEscapeCloseEditingPicture = (evt) => {
-
-  evt.preventDefault();
-
-  if (evt.key === Keys.ESCAPE || evt.key === Keys.ESC) {
-    clouseEditingPicture();
+loadingPicture.addEventListener('click', evt => {
+  if (!editingPicture.classList.contains('hidden')) {
+    evt.preventDefault();
   }
-
-  document.removeEventListener('click', onCloseEditingPicture);
-  document.removeEventListener('keydown', onEscapeCloseEditingPicture);
-}
+});
 
 loadingPicture.addEventListener('change', onOpenEditingPicture);
-uploadCancel.addEventListener('click', onCloseEditingPicture);
-document.addEventListener('keydown', onEscapeCloseEditingPicture);
+
 
 scaleControlSmaller.addEventListener('click', () => {
   const scaleControlValueNumber = +scaleControlValue.value.replace('%', '');
@@ -68,15 +83,4 @@ scaleControlBigger.addEventListener('click', () => {
   }
 
 })
-
-const oninputHashtagsFocus = () => {
-  document.removeEventListener('keydown', onEscapeCloseEditingPicture);
-  document.removeEventListener('focus', oninputHashtagsFocus)
-}
-const oninputHashtagsBlur = () => {
-  document.addEventListener('keydown', onEscapeCloseEditingPicture);
-  document.removeEventListener('focus', oninputHashtagsBlur)
-}
-
-inputHashtags.addEventListener('focus', oninputHashtagsFocus);
-inputHashtags.addEventListener('blur', oninputHashtagsBlur);
+export { clouseEditingPicture };

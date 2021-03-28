@@ -3,7 +3,7 @@
 const SpecialStyle = {
   MARVIN: 'marvin',
   PHOBOS: 'phobos',
-  NONE : 'none',
+  NONE: 'none',
 }
 const SliderSettings = {
   NONE:
@@ -66,26 +66,46 @@ const formEditingPicture = document.querySelector('.img-upload__form');
 const sliderContainer = formEditingPicture.querySelector('.effect-level__slider');
 const sliderValue = formEditingPicture.querySelector('.effect-level__value');
 const sliderEffect = formEditingPicture.querySelector('.img-upload__preview');
-const effectsList = formEditingPicture.querySelector('.effects__list')
+const effectsList = formEditingPicture.querySelector('.effects__list');
+
+
 
 noUiSlider.create(sliderContainer, {
   range: {
     min: 0,
     max: 1,
   },
-  start: 0.8,
+  start: 1,
   step: 0.1,
   connect: 'lower',
 });
 
+const setSliderDefaultSettings = () => {
+  const slider = document.querySelector('.noUi-base');
+  slider.style.display = 'none';
+  sliderEffect.classList.add(SliderSettings.NONE.class);
+  sliderEffect.style.filter = SpecialStyle.NONE;
+}
 
-effectsList.addEventListener('change', (evt) => {
+setSliderDefaultSettings();
+
+const onEffectsListChange = (evt) => {
 
   sliderEffect.classList.remove(sliderEffect.classList[1]);
+
+  const slider = document.querySelector('.noUi-base');
 
   const sliderSetting = SliderSettings[evt.target.value.toUpperCase()];
 
   sliderEffect.classList.add(sliderSetting.class);
+
+  if (evt.target.value === SpecialStyle.NONE) {
+
+    slider.style.display = 'none';
+  } else {
+
+    slider.style.display = 'block';
+  }
 
   sliderContainer.noUiSlider.updateOptions({
     range: {
@@ -126,4 +146,8 @@ effectsList.addEventListener('change', (evt) => {
       sliderEffect.style.filter = `${sliderSetting.effect}(${sliderValue.value}${units})`
     }
   });
-})
+}
+
+effectsList.addEventListener('change', onEffectsListChange)
+
+export {setSliderDefaultSettings};

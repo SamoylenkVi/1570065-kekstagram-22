@@ -1,7 +1,10 @@
-import { body, bigPictureContainer, createComment, createBigPicture } from './big-picture.js'
+import { body, bigPictureContainer, createBigPicture } from './big-picture.js'
+import { Keys } from './submit-form.js';
 
 const pictureTemplate = document.querySelector('#picture')
   .content;
+
+const bigPictureCancel = document.querySelector('.big-picture__cancel');
 
 
 const getPictureElement = ({ comments, likes, url }) => {
@@ -32,13 +35,31 @@ const addingPictures = (pictures, container) => {
 
       body.classList.add('modal-open');
       bigPictureContainer.classList.remove('hidden');
+      document.addEventListener('keydown', onEscapeCloseBigPicture);
+      bigPictureCancel.addEventListener('click', onBigPictureCancelClick);
 
-      createComment(picture)
-      createBigPicture(picture)
+      createBigPicture(picture);
+
     })
   });
 
   container.appendChild(fragment)
+}
+
+const onBigPictureCancelClick = () => {
+  body.classList.remove('modal-open');
+  bigPictureContainer.classList.add('hidden');
+}
+
+
+const onEscapeCloseBigPicture = (evt) => {
+  const isEscapeDown = evt.key === Keys.ESCAPE || evt.key === Keys.ESC;
+
+  if (isEscapeDown) {
+    evt.preventDefault();
+    onBigPictureCancelClick()
+    document.removeEventListener('keydown', onEscapeCloseBigPicture);
+  }
 }
 
 export { addingPictures }
