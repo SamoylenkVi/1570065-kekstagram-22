@@ -15,6 +15,7 @@ const bigPictureContainer = document.querySelector('.big-picture');
 const bigPictureImg = bigPictureContainer.querySelector('.big-picture__img img');
 const likesPicture = bigPictureContainer.querySelector('.likes-count');
 const commentsPicture = bigPictureContainer.querySelector('.comments-count');
+const commentsRenderedCounter = bigPictureContainer.querySelector('.comments-rendered-counter');
 const descriptionPicture = bigPictureContainer.querySelector('.social__caption');
 const commentsContainer = bigPictureContainer.querySelector('.social__comments');
 const body = document.querySelector('body');
@@ -72,6 +73,9 @@ const onloadMoreCommentButton = (evt) => {
 
   if (counterComments >= commentsBigPicture.length) {
     loadMoreCommentButton.classList.add('hidden');
+    commentsRenderedCounter.textContent = commentsBigPicture.length;
+  } else {
+    commentsRenderedCounter.textContent = counterComments;
   }
 }
 
@@ -87,16 +91,18 @@ const createComment = (comments) => {
 
   loadMoreCommentButton.classList.remove('hidden')
 
-  if (NUMBER_OF_COMMENTS >= commentsBigPicture.length) {
-    loadMoreCommentButton.classList.add('hidden');
-  }
-
   const fragment = createPartComment(commentsBigPicture, counterComments, endIndexComment);
 
   commentsContainer.appendChild(fragment);
   endIndexComment = NUMBER_OF_COMMENTS + counterComments;
   counterComments += NUMBER_OF_COMMENTS;
 
+  if (counterComments >= commentsBigPicture.length) {
+    loadMoreCommentButton.classList.add('hidden');
+    commentsRenderedCounter.textContent = commentsBigPicture.length;
+  } else {
+    commentsRenderedCounter.textContent = counterComments;
+  }
 }
 
 export { body, bigPictureContainer, createComment, createBigPicture }
