@@ -1,11 +1,13 @@
 import { body, bigPictureContainer, createBigPicture } from './big-picture.js'
 import { Keys } from './submit-form.js';
 
+const INACTIVE_CLASS_FILTER = 'img-filters--inactive';
+
 const pictureTemplate = document.querySelector('#picture')
   .content;
 
 const bigPictureCancel = document.querySelector('.big-picture__cancel');
-
+const filterforPicter = document.querySelector('.img-filters')
 
 const getPictureElement = ({ comments, likes, url }) => {
 
@@ -19,6 +21,10 @@ const getPictureElement = ({ comments, likes, url }) => {
 
   return picture
 };
+
+const openFilterforPicter = () => {
+  filterforPicter.classList.remove(INACTIVE_CLASS_FILTER);
+}
 
 const addingPictures = (pictures, container) => {
 
@@ -43,7 +49,9 @@ const addingPictures = (pictures, container) => {
     })
   });
 
-  container.appendChild(fragment)
+  container.appendChild(fragment);
+
+  openFilterforPicter();
 }
 
 const onBigPictureCancelClick = () => {

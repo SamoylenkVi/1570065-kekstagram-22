@@ -5,13 +5,10 @@ const CLASS_NAME = 'loading__error';
 const TEXT = 'Произошла ошибка! Попробуйте обновить страницу';
 const BUTTON_TEXT = 'Закрыть';
 const IMPORT_SERVER = 'https://22.javascript.pages.academy/kekstagram/data';
-const INACTIVE_CLASS_FILTER = 'img-filters--inactive';
 
 const pictureContainer = document.querySelector('.pictures');
-const filterforPicter = document.querySelector('.img-filters')
 
 let dataPictures = [];
-
 
 const createErrorMesage = () => {
 
@@ -31,18 +28,13 @@ const createErrorMesage = () => {
   }
 
   button.addEventListener('click', closeErrorPopUpHandler);
-}
-
-const openFilterforPicter = () => {
-  filterforPicter.classList.remove(INACTIVE_CLASS_FILTER);
-}
+};
 
 fetch(IMPORT_SERVER)
   .then((response) => response.json())
   .then((photos) => {
     dataPictures = photos.slice();
     addingPictures(photos.slice(), pictureContainer);
-    openFilterforPicter()
   })
   .catch(() => {
     createErrorMesage();
