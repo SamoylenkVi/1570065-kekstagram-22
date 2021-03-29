@@ -81,7 +81,7 @@ noUiSlider.create(sliderContainer, {
 });
 
 const setSliderDefaultSettings = () => {
-  const slider = document.querySelector('.noUi-base');
+  const slider = document.querySelector('.effect-level');
   slider.style.display = 'none';
   sliderEffect.classList.add(SliderSettings.NONE.class);
   sliderEffect.style.filter = SpecialStyle.NONE;
@@ -93,7 +93,7 @@ const onEffectsListChange = (evt) => {
 
   sliderEffect.classList.remove(sliderEffect.classList[1]);
 
-  const slider = document.querySelector('.noUi-base');
+  const slider = document.querySelector('.effect-level');
 
   const sliderSetting = SliderSettings[evt.target.value.toUpperCase()];
 
