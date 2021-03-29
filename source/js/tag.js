@@ -59,6 +59,7 @@ commentField.addEventListener('input', () => {
     commentField.setCustomValidity('Длинна комментария не может составлять больше 140 символов');
     commentField.classList.add('error-message');
   } else {
+    commentField.setCustomValidity('');
     commentField.classList.remove('error-message');
   }
 })
