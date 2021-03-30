@@ -68,8 +68,6 @@ const sliderValue = formEditingPicture.querySelector('.effect-level__value');
 const sliderEffect = formEditingPicture.querySelector('.img-upload__preview');
 const effectsList = formEditingPicture.querySelector('.effects__list');
 
-
-
 noUiSlider.create(sliderContainer, {
   range: {
     min: 0,
@@ -83,6 +81,7 @@ noUiSlider.create(sliderContainer, {
 const setSliderDefaultSettings = () => {
   const slider = document.querySelector('.effect-level');
   slider.style.display = 'none';
+
   sliderEffect.classList.add(SliderSettings.NONE.class);
   sliderEffect.style.filter = SpecialStyle.NONE;
 }
@@ -102,6 +101,7 @@ const onEffectsListChange = (evt) => {
   if (evt.target.value === SpecialStyle.NONE) {
 
     slider.style.display = 'none';
+
   } else {
 
     slider.style.display = 'block';
@@ -126,7 +126,6 @@ const onEffectsListChange = (evt) => {
       },
     },
   });
-
 
   sliderContainer.noUiSlider.on('update', (values, handle) => {
     sliderValue.value = values[handle];

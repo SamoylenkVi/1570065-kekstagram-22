@@ -10,7 +10,7 @@ const pictureContainer = document.querySelector('.pictures');
 
 let dataPictures = [];
 
-const createErrorMesage = () => {
+const createErrorMessage = () => {
 
   const message = document.createElement('div');
   message.classList.add(CLASS_NAME);
@@ -37,7 +37,7 @@ fetch(IMPORT_SERVER)
     addingPictures(photos.slice(), pictureContainer);
   })
   .catch(() => {
-    createErrorMesage();
+    createErrorMessage();
   });
 
 export { dataPictures }

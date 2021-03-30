@@ -3,7 +3,7 @@ const STEP = 25;
 const VALUE_MAX = 100;
 const DEFAULT_SCALE = 1;
 
-const Keys = {
+const Key = {
   ESCAPE: 'Escape',
   ESC: 'Esc',
 }
@@ -21,7 +21,7 @@ const inputHashtags = formEditingPicture.querySelector('.text__hashtags');
 const commentTextarea = formEditingPicture.querySelector('.text__description');
 
 
-const clouseEditingPicture = () => {
+const closeEditingPicture = () => {
   body.classList.remove('modal-open');
   editingPicture.classList.add('hidden');
   formEditingPicture.reset();
@@ -33,18 +33,18 @@ const clouseEditingPicture = () => {
 }
 
 const onCloseEditingPictureClick = () => {
-  clouseEditingPicture();
+  closeEditingPicture();
 
 }
 
 const onEscapeCloseEditingPicture = (evt) => {
-  const isEscapeDown = evt.key === Keys.ESCAPE || evt.key === Keys.ESC;
+  const isEscapeDown = evt.key === Key.ESCAPE || evt.key === Key.ESC;
   const isInputHashtagFocus = document.activeElement === inputHashtags;
-  const isTeaxtareaCommentFocus = document.activeElement === commentTextarea;
+  const isTextareaCommentFocus = document.activeElement === commentTextarea;
 
-  if (isEscapeDown && !(isInputHashtagFocus || isTeaxtareaCommentFocus)) {
+  if (isEscapeDown && !(isInputHashtagFocus || isTextareaCommentFocus)) {
     evt.preventDefault();
-    clouseEditingPicture();
+    closeEditingPicture();
   }
 }
 
@@ -83,4 +83,4 @@ scaleControlBigger.addEventListener('click', () => {
   }
 
 })
-export { clouseEditingPicture };
+export { closeEditingPicture, Key };

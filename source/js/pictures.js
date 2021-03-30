@@ -1,5 +1,5 @@
 import { body, bigPictureContainer, createBigPicture } from './big-picture.js'
-import { Keys } from './submit-form.js';
+import { Key } from './form.js';
 
 const INACTIVE_CLASS_FILTER = 'img-filters--inactive';
 
@@ -7,7 +7,7 @@ const pictureTemplate = document.querySelector('#picture')
   .content;
 
 const bigPictureCancel = document.querySelector('.big-picture__cancel');
-const filterforPicter = document.querySelector('.img-filters')
+const filterForPicter = document.querySelector('.img-filters')
 
 const getPictureElement = ({ comments, likes, url }) => {
 
@@ -22,8 +22,8 @@ const getPictureElement = ({ comments, likes, url }) => {
   return picture
 };
 
-const openFilterforPicter = () => {
-  filterforPicter.classList.remove(INACTIVE_CLASS_FILTER);
+const openFilterForPicter = () => {
+  filterForPicter.classList.remove(INACTIVE_CLASS_FILTER);
 }
 
 const addingPictures = (pictures, container) => {
@@ -51,7 +51,7 @@ const addingPictures = (pictures, container) => {
 
   container.appendChild(fragment);
 
-  openFilterforPicter();
+  openFilterForPicter();
 }
 
 const onBigPictureCancelClick = () => {
@@ -59,9 +59,8 @@ const onBigPictureCancelClick = () => {
   bigPictureContainer.classList.add('hidden');
 }
 
-
 const onEscapeCloseBigPicture = (evt) => {
-  const isEscapeDown = evt.key === Keys.ESCAPE || evt.key === Keys.ESC;
+  const isEscapeDown = evt.key === Key.ESCAPE || evt.key === Key.ESC;
 
   if (isEscapeDown) {
     evt.preventDefault();

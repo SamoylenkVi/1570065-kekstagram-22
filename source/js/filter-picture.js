@@ -2,7 +2,7 @@ import { dataPictures } from './fetch.js';
 import { addingPictures } from './pictures.js';
 import { getRandomInteger, debounce} from './utils.js';
 
-const MAX_RANDOM_PICRURE = 10;
+const MAX_RANDOM_PICTURE = 10;
 const pictureContainer = document.querySelector('.pictures');
 
 const imgFiltersContainer = document.querySelector('.img-filters__form');
@@ -50,7 +50,7 @@ const sortsPicturesRandom = (pictures) => {
   const links = pictureContainer.querySelectorAll('a');
 
   links.forEach(link => link.remove());
-  for (let i = 0; i < MAX_RANDOM_PICRURE; i++) {
+  for (let i = 0; i < MAX_RANDOM_PICTURE; i++) {
     const randomIndex = getRandomInteger(0, (picturesCopy.length - 1));
     const picture = picturesCopy.splice(randomIndex, 1)[0];
     randomPictures.push(picture)

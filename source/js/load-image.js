@@ -6,8 +6,8 @@ const Picture = {
 };
 
 const uploadFile = document.querySelector('#upload-file');
-const uploadPreviwContainer = document.querySelector('.img-upload__preview');
-const uploadPreviw = uploadPreviwContainer.querySelector('img');
+const uploadPreviewContainer = document.querySelector('.img-upload__preview');
+const uploadPreview = uploadPreviewContainer.querySelector('img');
 
 uploadFile.addEventListener('change', () => {
   const file = uploadFile.files[0];
@@ -21,9 +21,9 @@ uploadFile.addEventListener('change', () => {
     const reader = new FileReader();
 
     reader.addEventListener('load', () => {
-      uploadPreviw.src = reader.result;
-      uploadPreviw.width = Picture.WIDTH;
-      uploadPreviw.height = Picture.HEIGHT;
+      uploadPreview.src = reader.result;
+      uploadPreview.width = Picture.WIDTH;
+      uploadPreview.height = Picture.HEIGHT;
     })
 
     reader.readAsDataURL(file);
